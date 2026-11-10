@@ -24,11 +24,11 @@ do $$ begin
 end $$;
 
 -- Public ranking exposes only the selected score fields, never the private save JSON.
-do $ begin
+do $$ begin
   if not exists (select 1 from pg_views where schemaname='public' and viewname='lootora_leaderboard') then
     execute 'create view public.lootora_leaderboard as select user_id, username, level, kills, total_damage from public.lootora_clicker_saves';
   end if;
-end $;
+end $$;
 grant select on public.lootora_leaderboard to anon, authenticated;
 
 create table if not exists public.lootora_chat (
