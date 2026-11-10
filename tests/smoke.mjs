@@ -61,4 +61,9 @@ if (!source.includes('username,body')) throw new Error('Chat username integratio
 if (html.includes('⚔') || html.includes('◆')) throw new Error('Emoji game icons must be replaced by vector artwork');
 if (!html.includes('pet-sigil')) throw new Error('Pet icon styling is missing');
 
+if (source.includes('window.openListing') || html.includes('listingOverlay')) throw new Error('Obsolete storefront code remains in the game');
+if (html.includes('Комиссия 7%')) throw new Error('Obsolete payment marketplace copy remains');
+if (!source.includes("if(!supabase||!currentUser){$('leaderboard').textContent='Войди в аккаунт")) throw new Error('Leaderboard must require an authenticated user');
+
+
 console.log('Lootora smoke checks passed: ' + scripts.length + ' script(s), ' + ids.size + ' DOM ids, ' + new Set(inlineHandlers).size + ' inline actions.');
