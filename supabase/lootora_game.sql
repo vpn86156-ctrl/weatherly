@@ -69,8 +69,6 @@ alter table public.lootora_daily_scores enable row level security;
 
 drop policy if exists "profiles visible to authenticated" on public.lootora_profiles;
 create policy "profiles visible to authenticated" on public.lootora_profiles for select to authenticated using (true);
-drop policy if exists "users update own profile" on public.lootora_profiles;
-create policy "users update own profile" on public.lootora_profiles for update to authenticated using (auth.uid() = id) with check (auth.uid() = id and balance = (select p.balance from public.lootora_profiles p where p.id = auth.uid()) and reputation = (select p.reputation from public.lootora_profiles p where p.id = auth.uid()));
 
 drop policy if exists "authenticated read chat" on public.lootora_chat;
 create policy "authenticated read chat" on public.lootora_chat for select to authenticated using (true);
@@ -150,3 +148,8 @@ grant execute on function public.lootora_resolve_scam(bigint,boolean) to authent
 grant execute on function public.lootora_daily_trade(integer) to authenticated;
 
 -- Realtime chat: enable the table in Database -> Publications -> supabase_realtime if not already enabled.
+
+-- Backfill profiles for accounts that existed before this schema was installed.
+insert into public.lootora_profiles(id, username, balance, reputation)
+select u.id, coalesce(nullif(u.raw_user_meta_data->>'display_name',''), split_part(u.email,'@',1), 'Игрок'), 1000, 100
+from auth.users u on conflict (id) do nothing;
