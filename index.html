@@ -178,6 +178,97 @@ header{background:#090a0deF;border-color:#ffffff12}
 .hp-track span{background:linear-gradient(90deg,#8f2435,#ef7653,#ffc28a);box-shadow:0 0 14px #eb604855}
 .boss-hit{font-family:Georgia,serif;color:#ffdda2;text-shadow:0 3px 18px #ff702e;font-size:30px}
 @media(max-width:700px){.clicker-hero{grid-template-columns:1fr;padding:35px 0}.heroart{height:240px}.boss-stage{height:280px}.boss-art{height:260px}}
+
+/* LOOTORA POLISH PASS: responsive hierarchy, tactile combat and distinct boss silhouettes */
+:root{--gold-hi:#f2d59b;--gold-line:#a77a43;--surface:#12131a}
+::selection{background:#9a6a36;color:#fff}
+body{background-image:radial-gradient(ellipse at 50% -16%,#76502a35,transparent 47%),radial-gradient(ellipse at 94% 38%,#4a2d2730,transparent 34%),linear-gradient(180deg,#090a0e,#08090d 70%)}
+.wrap{max-width:1260px}
+header{border-bottom-color:#b58b4b30}
+.nav{gap:clamp(12px,2vw,28px)}
+.logo{display:flex;align-items:center;white-space:nowrap}
+nav a{transition:color .2s ease}
+.clicker-hero{position:relative;min-height:390px}
+.clicker-hero>div:first-child{position:relative;z-index:2}
+.clicker-hero h1{max-width:700px;text-wrap:balance;text-shadow:0 8px 38px #0008}
+.clicker-hero p{max-width:470px;line-height:1.85}
+.heroart{position:relative;isolation:isolate;overflow:hidden}
+.heroart:after{pointer-events:none}
+.heroart .art-mark{position:relative}
+.heroart .art-mark:after{content:"";position:absolute;inset:-13px;border:1px solid #f0d29a55;border-radius:inherit;animation:sealPulse 3.4s ease-in-out infinite}
+@keyframes sealPulse{0%,100%{transform:scale(.96);opacity:.35}50%{transform:scale(1.12);opacity:.8}}
+.game-stat{position:relative;overflow:hidden;transition:transform .25s,border-color .25s}
+.game-stat:after{content:"";position:absolute;inset:auto -20% -70% 20%;height:100%;background:radial-gradient(ellipse,#c18a3a16,transparent 68%);pointer-events:none}
+.game-stat:hover{transform:translateY(-3px);border-color:#8f6a3d}
+.battle-card{position:relative;overflow:hidden}
+.battle-card:before{content:"";position:absolute;inset:0 0 auto;height:1px;background:linear-gradient(90deg,transparent,#d5ae6d88,transparent)}
+.boss-stage{overflow:hidden;background:radial-gradient(ellipse at 50% 82%,#b77b3230,transparent 42%),radial-gradient(ellipse at 50% 42%,#4a303a55,transparent 60%),linear-gradient(180deg,#18151a,#090a0e)!important}
+.boss-stage:before{width:min(78vw,330px);height:min(78vw,330px);border-color:#d9ad6b35;box-shadow:0 0 60px #c18b4020,inset 0 0 40px #c18b4010}
+.boss-stage:after{width:min(60vw,245px);height:min(60vw,245px);border-color:#e6c58c2b}
+.boss-aura{z-index:0;transition:background .4s}
+.boss-art{z-index:1;filter:drop-shadow(0 18px 22px #000e) drop-shadow(0 0 20px #c18b3e66);transform-origin:50% 88%;animation:bossBreath 4.8s ease-in-out infinite}
+.boss-art path,.boss-art circle{vector-effect:non-scaling-stroke}
+.boss-art.boss-dragon,.boss-art.boss-emperor{animation:dragonHover 5.4s ease-in-out infinite}
+.boss-art.boss-cosmic{animation:cosmicFloat 7s ease-in-out infinite}
+.boss-art.boss-golem{animation:golemIdle 5.8s ease-in-out infinite}
+@keyframes bossBreath{0%,100%{transform:translateY(3px) scale(1)}50%{transform:translateY(-7px) scale(1.018)}}
+@keyframes dragonHover{0%,100%{transform:translateY(5px) rotate(-1deg) scale(1)}50%{transform:translateY(-10px) rotate(1deg) scale(1.035)}}
+@keyframes cosmicFloat{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-8px) rotate(1deg)}}
+@keyframes golemIdle{0%,100%{transform:translateY(2px) scale(1)}50%{transform:translateY(-4px) scale(1.01)}}
+.boss-stage.hit .boss-art{animation:bossImpact .38s cubic-bezier(.2,.8,.2,1)}
+@keyframes bossImpact{0%{transform:translateX(0) scale(1)}22%{transform:translateX(-14px) scale(1.055);filter:brightness(1.6) drop-shadow(0 0 25px #ff9a52)}55%{transform:translateX(9px) scale(.97)}100%{transform:translateX(0) scale(1)}}
+.boss-hit{z-index:4;pointer-events:none;font-family:Georgia,serif;font-weight:800;letter-spacing:.5px;animation:damageRise .75s cubic-bezier(.16,.8,.3,1) forwards}
+@keyframes damageRise{0%{opacity:0;transform:translateY(14px) scale(.65)}15%{opacity:1;transform:translateY(0) scale(1.12)}100%{opacity:0;transform:translateY(-64px) scale(.9)}}
+.hp-track{height:12px;box-shadow:inset 0 1px 3px #000a}
+.hp-track span{position:relative}
+.hp-track span:after{content:"";display:block;float:right;width:22px;height:100%;background:#fff8;filter:blur(5px)}
+.attack-button{position:relative;overflow:hidden;transition:filter .2s,transform .15s,box-shadow .2s}
+.attack-button:before{content:"";position:absolute;inset:0;transform:translateX(-120%);background:linear-gradient(105deg,transparent,#fff3,transparent);transition:transform .55s}
+.attack-button:hover:before{transform:translateX(120%)}
+.attack-button:hover{filter:brightness(1.12);box-shadow:0 10px 35px #a9673944}
+.attack-button:active{transform:scale(.985)}
+.upgrade-card{position:relative;overflow:hidden}
+.upgrade-card:after{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:linear-gradient(transparent,#c69b5d,transparent);opacity:0;transition:opacity .2s}
+.upgrade-card:hover:after{opacity:1}
+.game-tab{transition:background .2s,border-color .2s,color .2s,transform .2s}
+.game-tab:hover{transform:translateY(-2px);color:#f1d9ae}
+.hub-card{box-shadow:0 15px 45px #0003}
+.guild-row,.loot-item,.pet-card,.mode-card{transition:transform .2s,border-color .2s,box-shadow .2s}
+.guild-row:hover,.loot-item:hover,.pet-card:hover,.mode-card:hover{transform:translateY(-2px);border-color:#997344;box-shadow:0 9px 24px #0005}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid #e1bb7c;outline-offset:3px}
+button:disabled{opacity:.48;cursor:not-allowed;filter:saturate(.45)}
+.overlay{z-index:30}
+.toast{z-index:50;box-shadow:0 12px 38px #0009}
+@media(max-width:760px){
+ .clicker-hero{min-height:0;padding:34px 0 24px;gap:18px}
+ .clicker-hero h1{font-size:clamp(39px,11vw,54px);line-height:1.02}
+ .heroart{height:220px!important}
+ .boss-stage{height:280px!important}
+ .boss-art{height:255px!important;width:min(100%,380px)!important}
+ .side-column{grid-template-columns:1fr 1fr}
+ .daily-card{grid-column:1/-1}
+ .game-tabs{margin:0 -3px;padding:8px 3px 15px}
+}
+@media(max-width:420px){
+ .wrap{padding:0 12px}
+ .navright .btn{font-size:10px;padding:7px 8px}
+ .logo{font-size:17px}
+ .brand-glyph{width:23px;height:23px;margin-right:4px}
+ .clicker-hero h1{font-size:39px}
+ .heroart{height:195px!important;padding:12px!important}
+ .art-mark{width:68px;height:68px;flex-basis:68px;font-size:39px}
+ .art-copy strong{font-size:15px}
+ .game-stats{gap:6px}
+ .game-stat{padding:10px 7px}
+ .game-stat b{font-size:17px}
+ .boss-stage{height:255px!important}
+ .boss-art{height:230px!important}
+ .battle-card{padding:11px}
+ .attack-button{min-height:64px}
+ .inventory-grid,.pets-grid,.mode-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(prefers-reduced-motion:reduce){.boss-art,.heroart .art-mark:after{animation:none!important}}
+
 </style>
 </head>
 <body>
@@ -261,26 +352,49 @@ function boss(){return bosses[game.bossIndex%bosses.length]}function maxHp(){ret
 function saveGame(){try{localStorage.setItem(SAVE_KEY,JSON.stringify(game))}catch(e){console.warn('Local save unavailable',e)};if(supabase&&currentUser){clearTimeout(saveTimer);saveTimer=setTimeout(async()=>{const {error}=await supabase.from('lootora_clicker_saves').upsert({user_id:currentUser.id,username:gameProfile?.username||currentUser.user_metadata?.display_name||currentUser.email.split('@')[0],level:game.level,gold:game.gold,kills:game.kills,total_damage:game.totalDamage,save_data:game,updated_at:new Date().toISOString()},{onConflict:'user_id'});if(error)console.warn(error.message)},700)}}
 
 function monsterSvg(index){
- const themes=[
-  {a:'#8b9aa8',b:'#3d4b5c',c:'#d9e6ed',eye:'#b9f5ff',glow:'#7ca9c7',horn:'#d4dce4',name:'STONE'},
-  {a:'#d75d43',b:'#64252c',c:'#ffb16e',eye:'#ffe06b',glow:'#f05b39',horn:'#34202a',name:'ASH'},
-  {a:'#77c9e8',b:'#285d83',c:'#c9f3ff',eye:'#9cf8ff',glow:'#50c8ef',horn:'#e0f5ff',name:'FROST'},
-  {a:'#9c70d5',b:'#42285f',c:'#e2c5ff',eye:'#ff8bea',glow:'#9b55e9',horn:'#d5b4ff',name:'ABYSS'},
-  {a:'#5574cb',b:'#20265b',c:'#a9caff',eye:'#e3f3ff',glow:'#758cff',horn:'#c6d7ff',name:'STAR'},
-  {a:'#d04a69',b:'#4a183d',c:'#ff9bba',eye:'#ffe1a1',glow:'#f0478b',horn:'#f5b3ca',name:'VAAL'},
-  {a:'#d6a34c',b:'#594020',c:'#ffe5a0',eye:'#fff6b8',glow:'#ffc65c',horn:'#f8e0a0',name:'EMPEROR'}
+ const t=[
+  {a:'#8b9aa8',b:'#3d4b5c',c:'#d9e6ed',eye:'#b9f5ff',glow:'#7ca9c7',horn:'#d4dce4',type:'golem'},
+  {a:'#d75d43',b:'#64252c',c:'#ffb16e',eye:'#ffe06b',glow:'#f05b39',horn:'#34202a',type:'demon'},
+  {a:'#77c9e8',b:'#285d83',c:'#c9f3ff',eye:'#9cf8ff',glow:'#50c8ef',horn:'#e0f5ff',type:'dragon'},
+  {a:'#9c70d5',b:'#42285f',c:'#e2c5ff',eye:'#ff8bea',glow:'#9b55e9',horn:'#d5b4ff',type:'king'},
+  {a:'#5574cb',b:'#20265b',c:'#a9caff',eye:'#e3f3ff',glow:'#758cff',horn:'#c6d7ff',type:'cosmic'},
+  {a:'#d04a69',b:'#4a183d',c:'#ff9bba',eye:'#ffe1a1',glow:'#f0478b',horn:'#f5b3ca',type:'arch'},
+  {a:'#d6a34c',b:'#594020',c:'#ffe5a0',eye:'#fff6b8',glow:'#ffc65c',horn:'#f8e0a0',type:'emperor'}
  ][index%7];
- const dragon=[2,6].includes(index%7), demon=[1,3,5].includes(index%7), cosmic=index%7===4;
- const wing = dragon
- ? '<path d="M145 128 Q65 12 20 42 Q40 91 89 153 Q54 116 32 119 Q50 180 128 190Z" fill="url(#wing)" stroke="'+themes[index%7].c+'" stroke-width="3"/><path d="M195 128 Q275 12 320 42 Q300 91 251 153 Q286 116 308 119 Q290 180 212 190Z" fill="url(#wing)" stroke="'+themes[index%7].c+'" stroke-width="3"/><path d="M34 45L89 153L49 121 M306 45L251 153L291 121" fill="none" stroke="'+themes[index%7].c+'" stroke-width="2" opacity=".65"/>'
- : '<path d="M139 132 Q82 65 48 88 Q57 143 117 186Z M201 132 Q258 65 292 88 Q283 143 223 186Z" fill="url(#wing)" stroke="'+themes[index%7].c+'" stroke-width="3" opacity=".92"/>';
- const horns = demon
- ? '<path d="M126 94 Q75 9 91 4 Q132 34 145 82 M214 94 Q265 9 249 4 Q208 34 195 82" fill="url(#horn)" stroke="'+themes[index%7].c+'" stroke-width="3"/>'
- : '<path d="M132 91 Q100 27 118 19 Q148 48 151 83 M208 91 Q240 27 222 19 Q192 48 189 83" fill="url(#horn)" stroke="'+themes[index%7].c+'" stroke-width="3"/>';
- const extras = cosmic
- ? '<circle cx="170" cy="140" r="112" fill="none" stroke="'+themes[index%7].c+'" stroke-width="2" stroke-dasharray="3 9" opacity=".55"/><circle cx="170" cy="140" r="88" fill="none" stroke="'+themes[index%7].eye+'" stroke-width="1" opacity=".45"/><path d="M72 205Q20 230 54 267 M268 205Q320 230 286 267" stroke="'+themes[index%7].c+'" stroke-width="8" fill="none" stroke-linecap="round"/>'
- : '<path d="M115 212L93 268L127 252L145 274 M225 212L247 268L213 252L195 274" fill="url(#body)" stroke="'+themes[index%7].c+'" stroke-width="3" stroke-linejoin="round"/>';
- return '<svg class="boss-art" viewBox="0 0 340 300" role="img" aria-label="Иллюстрация босса"><defs><linearGradient id="body" x1="0" y1="0" x2="1" y2="1"><stop stop-color="'+themes[index%7].c+'"/><stop offset=".38" stop-color="'+themes[index%7].a+'"/><stop offset="1" stop-color="'+themes[index%7].b+'"/></linearGradient><linearGradient id="wing" x1="0" y1="0" x2="1" y2="1"><stop stop-color="'+themes[index%7].a+'"/><stop offset="1" stop-color="'+themes[index%7].b+'"/></linearGradient><linearGradient id="horn" x1="0" y1="0" x2="1" y2="1"><stop stop-color="'+themes[index%7].c+'"/><stop offset="1" stop-color="'+themes[index%7].b+'"/></linearGradient><radialGradient id="core"><stop stop-color="'+themes[index%7].eye+'"/><stop offset="1" stop-color="'+themes[index%7].glow+'" stop-opacity=".1"/></radialGradient><filter id="shadow"><feGaussianBlur stdDeviation="7"/></filter></defs><ellipse cx="170" cy="276" rx="105" ry="12" fill="'+themes[index%7].glow+'" opacity=".35" filter="url(#shadow)"/><circle cx="170" cy="151" r="116" fill="'+themes[index%7].glow+'" opacity=".1"/>'+wing+'<path d="M133 114Q170 78 207 114L235 203Q225 251 170 265Q115 251 105 203Z" fill="url(#body)" stroke="'+themes[index%7].c+'" stroke-width="4"/><path d="M120 139Q91 122 82 158L98 215L126 220 M220 139Q249 122 258 158L242 215L214 220" fill="url(#body)" stroke="'+themes[index%7].c+'" stroke-width="4"/><path d="M122 101Q116 53 170 48Q224 53 218 101L230 143Q216 177 170 179Q124 177 110 143Z" fill="url(#body)" stroke="'+themes[index%7].c+'" stroke-width="4"/>'+horns+'<path d="M125 119Q144 102 158 120L152 139Q137 145 125 131Z M182 120Q196 102 215 119L215 131Q203 145 188 139Z" fill="#11101b"/><path d="M132 125L153 122L147 135Z M187 122L208 125L193 135Z" fill="'+themes[index%7].eye+'" filter="url(#shadow)"/><path d="M132 125L153 122L147 135Z M187 122L208 125L193 135Z" fill="'+themes[index%7].eye+'"/><path d="M145 155Q170 169 195 155L186 178L154 178Z" fill="#24131e" stroke="'+themes[index%7].c+'" stroke-width="2"/><path d="M155 158L161 168L166 159L172 169L178 159L184 168" stroke="#fff0df" stroke-width="3" fill="none"/><path d="M140 189L170 205L200 189L191 231L170 244L149 231Z" fill="#111827" stroke="'+themes[index%7].c+'" stroke-width="3"/><path d="M170 202L184 216L170 232L156 216Z" fill="url(#core)" stroke="'+themes[index%7].eye+'" stroke-width="2"/>'+extras+'<path d="M111 226L91 258L123 247 M229 226L249 258L217 247" fill="none" stroke="'+themes[index%7].c+'" stroke-width="7" stroke-linecap="round"/><g fill="'+themes[index%7].eye+'" opacity=".8"><circle cx="65" cy="92" r="3"/><circle cx="275" cy="74" r="2"/><circle cx="58" cy="208" r="2"/><circle cx="285" cy="203" r="3"/></g></svg>';
+ const dragon=t.type==='dragon'||t.type==='emperor';
+ const demon=t.type==='demon'||t.type==='arch';
+ const cosmic=t.type==='cosmic';
+ const king=t.type==='king';
+ const golem=t.type==='golem';
+ const wings=dragon
+ ? '<path d="M145 132Q80 10 13 27Q26 105 94 169L44 127Q42 204 135 218Z" fill="url(#wing)" stroke="'+t.c+'" stroke-width="4"/><path d="M195 132Q260 10 327 27Q314 105 246 169L296 127Q298 204 205 218Z" fill="url(#wing)" stroke="'+t.c+'" stroke-width="4"/><path d="M18 32L94 169L48 128M322 32L246 169L292 128" fill="none" stroke="'+t.c+'" stroke-width="2" opacity=".65"/>'
+ : '<path d="M139 132Q78 48 38 78Q51 150 119 190L96 153Q102 214 147 222Z" fill="url(#wing)" stroke="'+t.c+'" stroke-width="3" opacity=".9"/><path d="M201 132Q262 48 302 78Q289 150 221 190L244 153Q238 214 193 222Z" fill="url(#wing)" stroke="'+t.c+'" stroke-width="3" opacity=".9"/>';
+ const horns=demon
+ ? '<path d="M128 91Q63 5 86 4Q131 26 151 83M212 91Q277 5 254 4Q209 26 189 83" fill="url(#horn)" stroke="'+t.c+'" stroke-width="4" stroke-linejoin="round"/>'
+ : dragon
+ ? '<path d="M128 91Q91 13 116 19L158 82M212 91Q249 13 224 19L182 82" fill="url(#horn)" stroke="'+t.c+'" stroke-width="4"/>'
+ : '<path d="M130 91Q104 27 119 20L153 83M210 91Q236 27 221 20L187 83" fill="url(#horn)" stroke="'+t.c+'" stroke-width="3"/>';
+ const head=golem
+ ? '<path d="M111 104L125 61L170 48L215 61L229 104L220 153L170 177L120 153Z" fill="url(#body)" stroke="'+t.c+'" stroke-width="5"/><path d="M125 65L147 79L136 104L112 111M215 65L193 79L204 104L228 111" fill="none" stroke="'+t.b+'" stroke-width="9"/>'
+ : cosmic
+ ? '<path d="M170 39C231 48 239 104 219 147C206 176 134 176 121 147C101 104 109 48 170 39Z" fill="url(#body)" stroke="'+t.c+'" stroke-width="4"/><path d="M170 50L188 93L170 82L152 93Z" fill="'+t.eye+'" opacity=".8"/>'
+ : king
+ ? '<path d="M112 111Q110 52 170 47Q230 52 228 111L219 154Q170 190 121 154Z" fill="url(#body)" stroke="'+t.c+'" stroke-width="4"/><path d="M105 73L119 20L151 55L170 8L189 55L221 20L235 73L215 87L125 87Z" fill="url(#horn)" stroke="'+t.c+'" stroke-width="3"/>'
+ : '<path d="M113 108Q111 50 170 43Q229 50 227 108L219 151Q170 183 121 151Z" fill="url(#body)" stroke="'+t.c+'" stroke-width="4"/>';
+ const armor=golem
+ ? '<path d="M115 183L170 166L225 183L244 253L211 273L170 254L129 273L96 253Z" fill="url(#body)" stroke="'+t.c+'" stroke-width="5"/><path d="M133 190L170 210L207 190L195 241L170 254L145 241Z" fill="'+t.b+'" stroke="'+t.c+'" stroke-width="3"/>'
+ : king
+ ? '<path d="M112 175L170 158L228 175L246 254L207 268L170 249L133 268L94 254Z" fill="url(#body)" stroke="'+t.c+'" stroke-width="4"/><path d="M145 180L170 204L195 180L188 237L170 250L152 237Z" fill="#17111e" stroke="'+t.eye+'" stroke-width="3"/>'
+ : '<path d="M119 170Q170 145 221 170L242 250L210 270L170 249L130 270L98 250Z" fill="url(#body)" stroke="'+t.c+'" stroke-width="4"/><path d="M139 183L170 204L201 183L190 238L170 251L150 238Z" fill="#10131c" stroke="'+t.c+'" stroke-width="3"/>';
+ const tail=dragon
+ ? '<path d="M210 228Q285 225 292 269Q253 287 225 261" fill="none" stroke="url(#body)" stroke-width="18" stroke-linecap="round"/><path d="M281 257L319 249L300 281Z" fill="url(#horn)" stroke="'+t.c+'" stroke-width="2"/>'
+ : '<path d="M211 226Q264 243 275 275" fill="none" stroke="url(#body)" stroke-width="13" stroke-linecap="round"/>';
+ const details=cosmic
+ ? '<circle cx="170" cy="135" r="24" fill="url(#core)" stroke="'+t.eye+'" stroke-width="3"/><circle cx="170" cy="135" r="9" fill="'+t.eye+'"/><path d="M80 225Q40 245 55 278M260 225Q300 245 285 278" fill="none" stroke="'+t.c+'" stroke-width="8" stroke-linecap="round"/>'
+ : '<path d="M145 126L158 130L151 143ZM195 130L208 126L202 143Z" fill="'+t.eye+'"/><path d="M148 157L160 166L170 158L180 166L192 157" fill="none" stroke="'+t.c+'" stroke-width="3"/><path d="M151 190L170 205L189 190" fill="none" stroke="'+t.eye+'" stroke-width="3"/>';
+ const limbs='<path d="M112 184Q82 190 77 226L94 245L124 224M228 184Q258 190 263 226L246 245L216 224" fill="url(#body)" stroke="'+t.c+'" stroke-width="5" stroke-linejoin="round"/><path d="M88 233L72 260L105 252L119 267M252 233L268 260L235 252L221 267" fill="url(#horn)" stroke="'+t.c+'" stroke-width="3"/>';
+ const runes='<g fill="'+t.eye+'" opacity=".85"><circle cx="48" cy="105" r="3"/><circle cx="291" cy="89" r="2.5"/><circle cx="55" cy="220" r="2"/><circle cx="284" cy="209" r="3"/><path d="M40 160l7-12 7 12-7 12zM286 150l6-10 6 10-6 10z"/></g>';
+ return '<svg class="boss-art boss-'+t.type+'" viewBox="0 0 340 300" role="img" aria-label="'+(['Каменный страж','Пепельный бес','Ледяной дракон','Король бездны','Пожиратель звёзд','Архидемон Ваал','Император драконов'][index%7])+'"><defs><linearGradient id="body" x1="0" y1="0" x2="1" y2="1"><stop stop-color="'+t.c+'"/><stop offset=".4" stop-color="'+t.a+'"/><stop offset="1" stop-color="'+t.b+'"/></linearGradient><linearGradient id="wing" x1="0" y1="0" x2="1" y2="1"><stop stop-color="'+t.a+'"/><stop offset="1" stop-color="'+t.b+'"/></linearGradient><linearGradient id="horn" x1="0" y1="0" x2="1" y2="1"><stop stop-color="'+t.c+'"/><stop offset="1" stop-color="'+t.b+'"/></linearGradient><radialGradient id="core"><stop stop-color="'+t.eye+'"/><stop offset="1" stop-color="'+t.glow+'" stop-opacity=".05"/></radialGradient><filter id="blur"><feGaussianBlur stdDeviation="8"/></filter></defs><ellipse cx="170" cy="281" rx="105" ry="11" fill="'+t.glow+'" opacity=".4" filter="url(#blur)"/><circle cx="170" cy="148" r="115" fill="'+t.glow+'" opacity=".12"/>'+wings+tail+armor+limbs+head+horns+details+'<path d="M145 181L170 195L195 181" fill="none" stroke="'+t.c+'" stroke-width="4"/>'+runes+'</svg>';
 }
 function renderGame(){const b=boss(),mx=maxHp();const stage=$('bossStage');const art=stage?.querySelector('.boss-art');if(art)art.outerHTML=monsterSvg(game.bossIndex);$('goldValue').textContent=game.gold.toLocaleString('ru-RU');$('goldSide').textContent=game.gold.toLocaleString('ru-RU');$('playerLevel').textContent=game.level;$('levelSide').textContent=game.level;$('killsValue').textContent=game.kills;$('totalDamage').textContent=game.totalDamage.toLocaleString('ru-RU');$('bossName').textContent=b.name;$('bossLevel').textContent=b.kind+' · УРОВЕНЬ '+(game.bossIndex+1);$('bossBadge').textContent=String(game.bossIndex+1).padStart(2,'0');$('bossSubtitle').textContent=b.sub;$('bossHpText').textContent=Math.max(0,game.bossHp).toLocaleString('ru-RU')+' / '+mx.toLocaleString('ru-RU');$('bossHpBar').style.width=Math.max(0,game.bossHp/mx*100)+'%';$('damageValue').textContent=damage();$('critValue').textContent=Math.min(75,5+game.crit*3)+'%';$('xpText').textContent=game.xp+' / '+needXp()+' XP';$('xpSide').textContent=game.xp+' / '+needXp()+' XP';$('xpBar').style.width=Math.min(100,game.xp/needXp()*100)+'%';$('swordLevel').textContent='Уровень '+game.sword;$('autoLevel').textContent='Уровень '+game.auto;$('critLevel').textContent='Уровень '+game.crit;$('swordCost').textContent=cost('sword')+' G';$('autoCost').textContent=cost('auto')+' G';$('critCost').textContent=cost('crit')+' G';$('questBar').style.width=Math.min(100,game.questDamage)+'%';$('questText').textContent=Math.min(100,game.questDamage)+' / 100';$('questButton').disabled=game.questClaimed||game.questDamage<100;$('questButton').textContent=game.questClaimed?'Получено':'Забрать';$('petCount').textContent=game.pets.length;$('towerFloor').textContent=game.tower;$('profileGold').textContent=game.gold;$('profileLevel').textContent=game.level;$('profileKills').textContent=game.kills;$('profileName').textContent=gameProfile?.username||'Гость';$('profileEmail').textContent=currentUser?.email||'Локальный прогресс';$('profileAvatar').textContent=$('profileName').textContent[0].toUpperCase();saveGame()}
 function weighted(arr){let sum=arr.reduce((n,x)=>n+x[1],0),v=Math.random()*sum;for(const x of arr){v-=x[1];if(v<=0)return x[0]}return arr[0][0]}
@@ -292,7 +406,7 @@ function defeatBoss(){const b=boss();game.gold+=Math.floor(b.reward*(1+game.pets
 window.buyUpgrade=k=>{const c=cost(k);if(game.gold<c)return say('Недостаточно золота');game.gold-=c;game[k]++;renderGame();say('Улучшение куплено')}
 window.claimQuest=()=>{if(game.questDate!==todayKey()){game.questDate=todayKey();game.questDamage=0;game.questClaimed=false}if(game.questClaimed||game.questDamage<100)return;game.gold+=50;game.questClaimed=true;renderGame();say('Ежедневное задание выполнено: +50 золота')}
 window.enterDungeon=t=>{const req={crypt:1,abyss:15,void:35}[t];if(game.level<req){$('dungeonStatus').textContent='Нужен уровень '+req;return}game.bossIndex+=t==='crypt'?0:t==='abyss'?3:5;game.bossHp=maxHp();$('dungeonStatus').textContent='Ты вошёл в подземелье. Победи босса!';renderGame()}
-window.towerNext=()=>{if(game.level<Math.ceil(game.tower/3))return say('Недостаточно высокий уровень');game.tower++;game.bossIndex=Math.min(bosses.length-1,Math.floor(game.tower/5));game.bossHp=maxHp();if(game.tower%5===0)game.gold+=game.tower*20;renderGame();say('Этаж '+game.tower+' пройден')}
+window.towerNext=()=>{if(game.level<Math.ceil(game.tower/3))return say('Недостаточно высокий уровень');game.tower++;game.bossIndex=Math.max(game.bossIndex,Math.floor((game.tower-1)/3));game.bossHp=maxHp();if(game.tower%5===0)game.gold+=game.tower*20;renderGame();say('Этаж '+game.tower+' пройден')}
 window.saveLocalNickname=()=>{const n=$('localNickname').value.trim();if(!n)return say('Введи имя');localStorage.setItem('lootora_nickname',n);if(gameProfile)gameProfile.username=n;renderGame();say('Имя сохранено')}
 window.toggleMotion=on=>{document.documentElement.classList.toggle('reduce-motion-user',on);localStorage.setItem('lootora_reduce_motion',on?'1':'0')};if(localStorage.getItem('lootora_reduce_motion')==='1'){$('reduceMotion').checked=true;toggleMotion(true)}if(localStorage.getItem('lootora_nickname'))$('localNickname').value=localStorage.getItem('lootora_nickname')
 function showGamePanel(n){document.querySelectorAll('.game-tab').forEach(b=>b.classList.toggle('active',b.dataset.panel===n));document.querySelectorAll('.game-panel').forEach(p=>p.classList.toggle('active',p.id==='panel-'+n));if(n==='inventory')renderInventory();if(n==='pets')renderPets();if(n==='top')loadLeaderboard();if(n==='chat')loadChat();if(n==='guilds')loadGuilds();if(n==='pvp'){loadPvpStats();}}
