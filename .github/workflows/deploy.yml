@@ -24,8 +24,11 @@ jobs:
       - uses: actions/upload-pages-artifact@v3
         with:
           path: .
+          name: lootora-pages-${{ github.run_id }}-${{ github.run_attempt }}
       - id: deployment
         uses: actions/deploy-pages@v4
+        with:
+          artifact_name: lootora-pages-${{ github.run_id }}-${{ github.run_attempt }}
       - uses: actions/setup-node@v4
         with:
           node-version: 20
