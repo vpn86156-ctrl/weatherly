@@ -51,3 +51,16 @@ https://vpn86156-ctrl.github.io/weatherly/
 - PvP, совместные рейд-боссы, гильдии и автоматическая выдача турнирных наград пока представлены интерфейсом; для них нужен отдельный серверный API, подбор соперников и защита от подмены результатов.
 - Пока локальная версия сохраняет прогресс в браузере. При входе она пытается загрузить облачное сохранение.
 - Золото и предметы — игровые данные без реальной денежной стоимости и вывода средств.
+
+## Social systems: guilds and PvP
+
+After running `supabase-clicker.sql`, run `supabase-social.sql` in the Supabase SQL Editor. This creates:
+
+- Public guild discovery for signed-in players, guild creation, joining, leaving and leader-only disbanding.
+- A 30-member guild cap and one-guild-per-player rule.
+- Server-owned PvP rating, wins and losses.
+- A matchmaking queue and server-recorded asynchronous 1v1 results. This is rating-based matchmaking/resolution, not a real-time action combat simulation.
+
+The social RPC functions run with a restricted search path and validate the authenticated user. Clients receive read-only access to public guilds and PvP ratings; they cannot directly edit PvP results or ratings.
+
+GitHub Actions runs `node tests/smoke.mjs` before every Pages deployment. It checks inline JavaScript syntax, required UI elements and inline button handlers.
