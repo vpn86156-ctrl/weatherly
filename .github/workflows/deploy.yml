@@ -1,4 +1,4 @@
-name: Deploy Weatherly to GitHub Pages
+name: Deploy Lootora to GitHub Pages
 on:
   push:
     branches: [main]
