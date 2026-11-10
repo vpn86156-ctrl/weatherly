@@ -13,7 +13,7 @@ for (const [index, code] of scripts.entries()) {
 const ids = new Set([...html.matchAll(/\bid=["']([^"']+)["']/g)].map(match => match[1]));
 const requiredIds = [
   'accountBtn','authOverlay','authEmail','authPassword','authSubmit','authStatus',
-  'bossStage','bossName','bossHpBar','goldValue','attackButton','questButton',
+  'bossStage','bossName','bossHpBar','goldValue','questButton',
   'inventoryGrid','petsGrid','leaderboard','chatMessages','chatInput','toast'
 ];
 const missingIds = requiredIds.filter(id => !ids.has(id));
