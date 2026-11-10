@@ -34,9 +34,9 @@ for (const name of ['attackBoss','submitAuth','openAuth','buyUpgrade','claimQues
 
 
 const monsterStart = source.indexOf('function monsterSvg(index){');
-const monsterEnd = source.indexOf('\\nfunction renderGame()', monsterStart);
+const monsterEnd = source.indexOf('\nfunction renderGame()', monsterStart);
 if (monsterStart < 0 || monsterEnd < 0) throw new Error('Boss renderer is missing');
-const monsterRenderer = vm.runInNewContext(source.slice(monsterStart, monsterEnd) + '\\nmonsterSvg');
+const monsterRenderer = vm.runInNewContext(source.slice(monsterStart, monsterEnd) + '\nmonsterSvg');
 const bossLabels = new Set();
 for (let index = 0; index < 7; index++) {
   const svg = monsterRenderer(index);
