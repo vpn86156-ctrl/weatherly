@@ -32,4 +32,24 @@ for (const name of ['attackBoss','submitAuth','openAuth','buyUpgrade','claimQues
   if (!new RegExp('window\\.' + name + '\\s*=').test(source)) throw new Error('Core action is not exposed: ' + name);
 }
 
+
+const monsterStart = source.indexOf('function monsterSvg(index){');
+const monsterEnd = source.indexOf('\\nfunction renderGame()', monsterStart);
+if (monsterStart < 0 || monsterEnd < 0) throw new Error('Boss renderer is missing');
+const monsterRenderer = vm.runInNewContext(source.slice(monsterStart, monsterEnd) + '\\nmonsterSvg');
+const bossLabels = new Set();
+for (let index = 0; index < 7; index++) {
+  const svg = monsterRenderer(index);
+  if (!svg.includes('<svg') || !svg.includes('boss-art')) throw new Error('Boss ' + index + ' did not render SVG artwork');
+  const label = svg.match(/aria-label="([^"]+)"/)?.[1];
+  if (!label) throw new Error('Boss ' + index + ' is missing accessible artwork label');
+  bossLabels.add(label);
+}
+if (bossLabels.size !== 7) throw new Error('Bosses must have seven distinct names and art variants');
+if (!source.includes('Math.max(game.bossIndex,Math.floor((game.tower-1)/3))')) {
+  throw new Error('Infinite tower boss progression regression');
+}
+if (!html.includes('@media(max-width:420px)')) throw new Error('Small-screen layout rules are missing');
+if (!html.includes('prefers-reduced-motion:reduce')) throw new Error('Reduced-motion accessibility rules are missing');
+
 console.log('Lootora smoke checks passed: ' + scripts.length + ' script(s), ' + ids.size + ' DOM ids, ' + new Set(inlineHandlers).size + ' inline actions.');
