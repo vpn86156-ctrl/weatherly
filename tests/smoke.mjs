@@ -14,7 +14,9 @@ const ids = new Set([...html.matchAll(/\bid=["']([^"']+)["']/g)].map(match => ma
 const requiredIds = [
   'accountBtn','authOverlay','authEmail','authPassword','authSubmit','authStatus',
   'bossStage','bossName','bossHpBar','goldValue','questButton',
-  'inventoryGrid','petsGrid','leaderboard','chatMessages','chatInput','toast',\n  'guildStatus','myGuild','guildName','guildDescription','guildList',\n  'pvpRating','pvpWins','pvpLosses','pvpQueueButton','pvpStatus'
+  'inventoryGrid','petsGrid','leaderboard','chatMessages','chatInput','toast',
+  'guildStatus','myGuild','guildName','guildDescription','guildList',
+  'pvpRating','pvpWins','pvpLosses','pvpQueueButton','pvpStatus'
 ];
 const missingIds = requiredIds.filter(id => !ids.has(id));
 if (missingIds.length) throw new Error('Required UI elements are missing: ' + missingIds.join(', '));
