@@ -52,4 +52,13 @@ if (!source.includes('Math.max(game.bossIndex,Math.floor((game.tower-1)/3))')) {
 if (!html.includes('@media(max-width:420px)')) throw new Error('Small-screen layout rules are missing');
 if (!html.includes('prefers-reduced-motion:reduce')) throw new Error('Reduced-motion accessibility rules are missing');
 
+
+if (!source.includes('const saveKeyFor=owner=>SAVE_KEY+')) throw new Error('Account-specific local save keys are missing');
+if (!source.includes('readSavedGame(nextId)')) throw new Error('Account-specific local save restore is missing');
+if (!source.includes('if(currentUser?.id!==owner)return')) throw new Error('Cloud save owner guard is missing');
+if (!source.includes("select('user_id,username,level,gold,kills,total_damage,save_data,updated_at')")) throw new Error('Cloud save query must explicitly select the expected schema');
+if (!source.includes('username,body')) throw new Error('Chat username integration is missing');
+if (html.includes('⚔') || html.includes('◆')) throw new Error('Emoji game icons must be replaced by vector artwork');
+if (!html.includes('pet-sigil')) throw new Error('Pet icon styling is missing');
+
 console.log('Lootora smoke checks passed: ' + scripts.length + ' script(s), ' + ids.size + ' DOM ids, ' + new Set(inlineHandlers).size + ' inline actions.');
