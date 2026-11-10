@@ -53,7 +53,7 @@ if (!html.includes('@media(max-width:420px)')) throw new Error('Small-screen lay
 if (!html.includes('prefers-reduced-motion:reduce')) throw new Error('Reduced-motion accessibility rules are missing');
 
 
-if (!source.includes('supaClient=null') || /\\blet\\s+supabase\\s*=/.test(source)) throw new Error('Supabase SDK global must not collide with the local client variable');
+if (!source.includes('supaClient=null') || /\blet\s+supabase\s*=/.test(source)) throw new Error('Supabase SDK global must not collide with the local client variable');
 if (!source.includes('const saveKeyFor=owner=>SAVE_KEY+')) throw new Error('Account-specific local save keys are missing');
 if (!source.includes('readSavedGame(nextId)')) throw new Error('Account-specific local save restore is missing');
 if (!source.includes('if(currentUser?.id!==owner)return')) throw new Error('Cloud save owner guard is missing');
