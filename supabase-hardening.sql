@@ -111,4 +111,13 @@ create index if not exists lootora_scam_attempts_attacker_id_idx on public.looto
 drop index if exists public.lootora_chat_created_at_idx;
 drop index if exists public.lootora_guild_members_guild_idx;
 
+
+-- Keep auth.uid() evaluation outside per-row RLS expressions.
+alter policy "read own reports" on public.lootora_reports
+  using ((select auth.uid()) = reporter_id or (select auth.uid()) = target_id);
+alter policy "submit own report" on public.lootora_reports
+  with check ((select auth.uid()) = reporter_id and reporter_id <> target_id);
+alter policy "read scam participant" on public.lootora_scam_attempts
+  using ((select auth.uid()) = attacker_id or (select auth.uid()) = target_id);
+
 commit;
