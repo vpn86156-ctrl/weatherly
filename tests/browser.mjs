@@ -15,7 +15,19 @@ try {
 
   const hpBefore = await page.locator('#bossHpText').innerText();
   await page.locator('.attack-button').click();
-  await page.waitForFunction(before => document.querySelector('#bossHpText')?.innerText !== before, hpBefore);
+  await page.waitForTimeout(300);
+  const hpAfterAttack = await page.locator('#bossHpText').innerText();
+  if (hpAfterAttack === hpBefore) {
+    const diagnostics = await page.evaluate(() => ({
+      attackFunction: typeof window.attackBoss,
+      buttonDisabled: document.querySelector('.attack-button')?.disabled,
+      buttonHandler: document.querySelector('.attack-button')?.getAttribute('onclick'),
+      stageClass: document.querySelector('#bossStage')?.className,
+      hitText: document.querySelector('#bossHit')?.textContent,
+      bossHpText: document.querySelector('#bossHpText')?.textContent
+    }));
+    throw new Error('Attack button did not change boss HP: ' + JSON.stringify(diagnostics) + '; page errors: ' + pageErrors.join(' | '));
+  }
   if (!(await page.locator('#bossStage .boss-art').getAttribute('aria-label'))) {
     throw new Error('Boss artwork has no accessible label');
   }
