@@ -13,12 +13,50 @@ header{height:72px;border-bottom:1px solid #ffffff12;position:sticky;top:0;backg
 .features{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin-bottom:60px}.feature{background:var(--panel);border:1px solid var(--line);border-radius:15px;padding:20px}.feature strong{font-size:17px}.feature p{color:var(--muted);margin-bottom:0}footer{border-top:1px solid var(--line);padding:25px 0;color:var(--muted);font-size:12px}
 .overlay{display:none;position:fixed;inset:0;background:#000b;z-index:12;place-items:center;padding:18px}.overlay.open{display:grid}.modal{width:min(470px,100%);max-height:90vh;overflow:auto;padding:24px;background:#171d2b;border:1px solid var(--line);border-radius:18px;box-shadow:0 30px 100px #0009}.modal h2{margin:0 0 4px}.modal>p{color:var(--muted);margin:0 0 17px}.field{display:grid;gap:6px;margin:12px 0}.field label{font-size:12px;color:var(--muted)}.field input,.field select,.field textarea{width:100%;background:#0d111c;border:1px solid var(--line);border-radius:9px;padding:11px;color:white;outline:none}.field input:focus{border-color:#9275ec}.actions{display:flex;justify-content:space-between;align-items:center;gap:9px;margin-top:18px}.switchlink{background:none;border:0;color:#c7b8ff;padding:0;font-size:13px}.status{font-size:12px;color:#c4b6ff;min-height:18px;margin-top:10px}.smallnote{font-size:11px;color:var(--muted);line-height:1.5}.divider{border:0;border-top:1px solid var(--line);margin:17px 0}.toast{position:fixed;bottom:20px;left:50%;transform:translate(-50%,20px);opacity:0;background:#242b3d;border:1px solid #45516c;border-radius:11px;padding:12px 17px;z-index:30;transition:.2s;max-width:90%;text-align:center}.toast.show{opacity:1;transform:translate(-50%,0)}
 @media(max-width:850px){.hero{grid-template-columns:1fr}.grid{grid-template-columns:repeat(2,1fr)}nav{display:none}}@media(max-width:540px){.wrap{padding:0 15px}.hero{padding:43px 0 25px}.heroart{height:195px}.grid{gap:9px}.visual{height:115px}.body{padding:10px}.body h3{font-size:13px}.price{font-size:15px}.buy{font-size:11px;padding:6px 8px}.stats{gap:15px}.features{grid-template-columns:1fr}.navright .btn{padding:8px 10px;font-size:12px}}
+
+/* Lootora visual refresh */
+.heroart{height:252px;padding:20px 22px;display:flex;flex-direction:column;justify-content:space-between;isolation:isolate;background:radial-gradient(ellipse at 75% 45%,#7652c94d,transparent 42%),linear-gradient(130deg,#211a38 0%,#171b2b 56%,#20283c 100%);box-shadow:inset 0 1px 0 #ffffff18,0 18px 55px #05061155;animation:artEnter .85s cubic-bezier(.2,.8,.2,1) both}
+.heroart:before{width:310px;height:310px;border-color:#c4aaff18;animation:orbit 24s linear infinite}
+.heroart:after{width:220px;height:220px;border-color:#c4aaff20;animation:orbit 18s linear infinite reverse}
+.art-top,.art-bottom{position:relative;z-index:2;display:flex;align-items:center;gap:9px;font-size:10px;letter-spacing:1.8px;font-weight:850;color:#e9e1ff}
+.art-top i{font-style:normal;color:#9b91b9;font-weight:650}
+.art-live{width:7px;height:7px;border-radius:50%;background:#9d80ff;box-shadow:0 0 13px #a887ff;animation:pulse 2.2s ease-in-out infinite}
+.art-center{position:relative;z-index:1;display:flex;align-items:center;gap:22px;min-height:130px}
+.art-mark{width:112px;height:112px;flex:0 0 112px;border-radius:29px;display:grid;place-items:center;background:linear-gradient(145deg,#d8caff 0%,#a17dff 48%,#6344bd 100%);box-shadow:0 16px 45px #8863ee66,inset 0 1px 1px #ffffffa8;color:#fff;font-size:67px;font-weight:950;letter-spacing:-7px;transform:rotate(-8deg);animation:markFloat 5s ease-in-out infinite}
+.art-mark span{color:#e3d8ff}
+.art-copy{min-width:0;text-shadow:0 2px 15px #09071288}
+.art-copy strong{display:block;font-size:clamp(17px,2.2vw,25px);line-height:1.22;letter-spacing:-.8px}
+.art-copy em{font-style:normal;color:#bba5ff}
+.art-copy small{display:block;margin-top:11px;color:#aaa1c4;font-size:9px;letter-spacing:1.1px;font-weight:800}
+.art-bottom{gap:7px;flex-wrap:wrap;color:#bcb3d5;font-size:9px;letter-spacing:1px}
+.art-bottom span{padding:5px 8px;border:1px solid #ffffff20;border-radius:6px;background:#ffffff09}
+.art-bottom b{margin-left:auto;color:#d7caff;font-size:9px}
+.art-glow{position:absolute;z-index:-1;width:170px;height:170px;right:-35px;top:35px;border-radius:50%;background:#8b63ff25;filter:blur(35px);animation:glowMove 7s ease-in-out infinite alternate}
+@keyframes markFloat{0%,100%{transform:translateY(0) rotate(-8deg)}50%{transform:translateY(-7px) rotate(-5deg)}}
+@keyframes orbit{to{transform:rotate(360deg)}}
+@keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 12px #a887ff}50%{opacity:.45;box-shadow:0 0 3px #a887ff}}
+@keyframes glowMove{from{transform:translate(-15px,-8px) scale(.85)}to{transform:translate(10px,12px) scale(1.2)}}
+@keyframes artEnter{from{opacity:0;transform:translateY(18px) scale(.985)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes cardEnter{from{opacity:0;transform:translateY(13px)}to{opacity:1;transform:translateY(0)}}
+.card{transition:transform .28s cubic-bezier(.2,.8,.2,1),border-color .28s,box-shadow .28s;animation:cardEnter .55s both}
+.card:nth-child(2){animation-delay:.05s}.card:nth-child(3){animation-delay:.1s}.card:nth-child(4){animation-delay:.15s}.card:nth-child(5){animation-delay:.2s}.card:nth-child(6){animation-delay:.25s}.card:nth-child(7){animation-delay:.3s}.card:nth-child(8){animation-delay:.35s}
+.card:hover{transform:translateY(-6px);border-color:#9274e5;box-shadow:0 15px 32px #0005}
+.btn,.buy,.chip{transition:transform .2s ease,filter .2s ease,background .2s ease,border-color .2s ease,box-shadow .2s ease}
+.btn:hover,.buy:hover{transform:translateY(-2px);box-shadow:0 7px 20px #8c69e533}
+.btn:active,.buy:active,.chip:active{transform:scale(.97)}
+.search input{transition:border-color .2s,box-shadow .2s}
+.search input:focus{border-color:#9275ec;box-shadow:0 0 0 3px #9275ec22;outline:none}
+.chips{scrollbar-width:none;scroll-behavior:smooth}.chips::-webkit-scrollbar{display:none}
+html{scroll-behavior:smooth}
+@media(max-width:600px){.heroart{height:205px;padding:15px 14px;border-radius:19px}.art-center{gap:14px;min-height:112px}.art-mark{width:82px;height:82px;flex-basis:82px;border-radius:22px;font-size:49px;letter-spacing:-5px}.art-copy strong{font-size:17px}.art-copy small{font-size:7px;letter-spacing:.55px;margin-top:8px}.art-top{font-size:9px}.art-bottom{font-size:8px;gap:5px}.art-bottom b{font-size:8px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+
 </style>
 </head>
 <body>
 <header><div class="wrap nav"><div class="logo">lootora<span>.</span></div><nav><a href="#catalog">Каталог</a><a href="#about">О площадке</a><a href="#sell">Продавцам</a></nav><div class="navright"><div class="userpill" id="userpill"></div><button class="btn" id="accountBtn" onclick="openAuth()">Войти</button><button class="btn primary" onclick="openListing()">Продать</button></div></div></header>
 <main class="wrap">
-<section class="hero"><div><div class="eyebrow">Игровой маркетплейс нового поколения</div><h1>Твой мир.<br><span>Твои предметы.</span></h1><p>Покупай и продавай игровые товары в одном месте. Находи интересные предложения, открывай свой магазин и торгуй на своих условиях.</p><div class="search"><input id="q" placeholder="Найти игру, предмет или продавца…" oninput="render()"><button class="btn primary" onclick="document.querySelector('#catalog').scrollIntoView({behavior:'smooth'})">Найти</button></div><div class="stats"><div><b>7%</b>планируемая комиссия</div><div><b>24/7</b>каталог онлайн</div><div><b>₽</b>цены в рублях</div></div></div><div class="heroart"><div class="float f1">ЦИФРОВЫЕ ТОВАРЫ</div><div class="heroorb">L</div><div class="float f2">LOOTORA MARKET</div></div></section>
+<section class="hero"><div><div class="eyebrow">Игровой маркетплейс нового поколения</div><h1>Твой мир.<br><span>Твои предметы.</span></h1><p>Покупай и продавай игровые товары в одном месте. Находи интересные предложения, открывай свой магазин и торгуй на своих условиях.</p><div class="search"><input id="q" placeholder="Найти игру, предмет или продавца…" oninput="render()"><button class="btn primary" onclick="document.querySelector('#catalog').scrollIntoView({behavior:'smooth'})">Найти</button></div><div class="stats"><div><b>7%</b>планируемая комиссия</div><div><b>24/7</b>каталог онлайн</div><div><b>₽</b>цены в рублях</div></div></div><div class="heroart"><div class="art-top"><span class="art-live"></span> LOOTORA <i> DIGITAL GOODS</i></div><div class="art-center"><div class="art-orbit"></div><div class="art-mark">L<span>.</span></div><div class="art-copy"><strong>Игровые ценности.<br><em>Новые возможности.</em></strong><small>ПОКУПАЙ&nbsp; · &nbsp;ПРОДАВАЙ&nbsp; · &nbsp;СОБИРАЙ</small></div></div><div class="art-bottom"><span>CS2</span><span>MINECRAFT</span><span>STEAM</span><b>MARKETPLACE</b></div><div class="art-glow"></div></div></section>
 <section id="catalog"><div class="head"><div><h2>Популярные предложения</h2><p>Демонстрационные товары с изображениями</p></div><span style="font-size:11px;color:var(--muted)">КАТАЛОГ</span></div><div class="chips" id="chips"></div><div class="grid" id="products"></div></section>
 <section id="about"><div class="head"><div><h2>Торговля без лишней сложности</h2><p>Понятный путь от объявления до заказа</p></div></div><div class="features"><div class="feature"><strong>Находи товары</strong><p>Поиск и категории помогают быстро найти нужное.</p></div><div class="feature"><strong>Покупай уверенно</strong><p>Смотри описание, цену и информацию о продавце.</p></div><div class="feature" id="sell"><strong>Продавай своё</strong><p>Создавай объявления и развивай собственный магазин.</p></div></div></section>
 </main>
