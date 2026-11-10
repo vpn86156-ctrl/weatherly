@@ -1,5 +1,5 @@
--- Lootora Clicker cloud saves, safe public leaderboard and live chat
--- Idempotent setup: safe to run again; no tables or player data are deleted.
+-- Lootora Clicker: cloud saves, TOP-10 and chat
+-- This version intentionally uses no DO blocks / dollar quoting.
 create table if not exists public.lootora_clicker_saves (
   user_id uuid primary key references auth.users(id) on delete cascade,
   username text not null default 'Охотник',
@@ -10,25 +10,27 @@ create table if not exists public.lootora_clicker_saves (
   save_data jsonb not null default '{}'::jsonb,
   updated_at timestamptz not null default now()
 );
-alter table public.lootora_clicker_saves enable row level security;
-do $$ begin
-  if not exists (select 1 from pg_policies where schemaname='public' and tablename='lootora_clicker_saves' and policyname='Players read own clicker save') then
-    create policy "Players read own clicker save" on public.lootora_clicker_saves for select to authenticated using (auth.uid() = user_id);
-  end if;
-  if not exists (select 1 from pg_policies where schemaname='public' and tablename='lootora_clicker_saves' and policyname='Players insert own clicker save') then
-    create policy "Players insert own clicker save" on public.lootora_clicker_saves for insert to authenticated with check (auth.uid() = user_id);
-  end if;
-  if not exists (select 1 from pg_policies where schemaname='public' and tablename='lootora_clicker_saves' and policyname='Players update own clicker save') then
-    create policy "Players update own clicker save" on public.lootora_clicker_saves for update to authenticated using (auth.uid() = user_id) with check (auth.uid() = user_id);
-  end if;
-end $$;
 
--- Public ranking exposes only the selected score fields, never the private save JSON.
-do $$ begin
-  if not exists (select 1 from pg_views where schemaname='public' and viewname='lootora_leaderboard') then
-    execute 'create view public.lootora_leaderboard as select user_id, username, level, kills, total_damage from public.lootora_clicker_saves';
-  end if;
-end $$;
+alter table public.lootora_clicker_saves enable row level security;
+drop policy if exists "Players read own clicker save" on public.lootora_clicker_saves;
+create policy "Players read own clicker save"
+on public.lootora_clicker_saves for select to authenticated
+using (auth.uid() = user_id);
+
+drop policy if exists "Players insert own clicker save" on public.lootora_clicker_saves;
+create policy "Players insert own clicker save"
+on public.lootora_clicker_saves for insert to authenticated
+with check (auth.uid() = user_id);
+
+drop policy if exists "Players update own clicker save" on public.lootora_clicker_saves;
+create policy "Players update own clicker save"
+on public.lootora_clicker_saves for update to authenticated
+using (auth.uid() = user_id)
+with check (auth.uid() = user_id);
+
+create or replace view public.lootora_leaderboard as
+select user_id, username, level, kills, total_damage
+from public.lootora_clicker_saves;
 grant select on public.lootora_leaderboard to anon, authenticated;
 
 create table if not exists public.lootora_chat (
@@ -37,20 +39,17 @@ create table if not exists public.lootora_chat (
   body text not null check (char_length(body) between 1 and 300),
   created_at timestamptz not null default now()
 );
-create index if not exists lootora_chat_created_at_idx on public.lootora_chat(created_at desc);
+create index if not exists lootora_chat_created_at_idx
+on public.lootora_chat(created_at desc);
+
 alter table public.lootora_chat enable row level security;
-do $$ begin
-  if not exists (select 1 from pg_policies where schemaname='public' and tablename='lootora_chat' and policyname='Authenticated users read chat') then
-    create policy "Authenticated users read chat" on public.lootora_chat for select to authenticated using (true);
-  end if;
-  if not exists (select 1 from pg_policies where schemaname='public' and tablename='lootora_chat' and policyname='Players send own chat messages') then
-    create policy "Players send own chat messages" on public.lootora_chat for insert to authenticated with check (auth.uid() = user_id);
-  end if;
-end $$;
-do $$
-begin
-  if not exists (select 1 from pg_publication_tables where pubname='supabase_realtime' and schemaname='public' and tablename='lootora_chat') then
-    alter publication supabase_realtime add table public.lootora_chat;
-  end if;
-exception when undefined_object then null;
-end $$;
+drop policy if exists "Authenticated users read chat" on public.lootora_chat;
+create policy "Authenticated users read chat"
+on public.lootora_chat for select to authenticated using (true);
+
+drop policy if exists "Players send own chat messages" on public.lootora_chat;
+create policy "Players send own chat messages"
+on public.lootora_chat for insert to authenticated
+with check (auth.uid() = user_id);
+
+-- Realtime for chat can be enabled separately in Supabase Database > Replication.
