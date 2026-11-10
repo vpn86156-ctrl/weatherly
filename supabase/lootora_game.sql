@@ -67,6 +67,13 @@ alter table public.lootora_reports enable row level security;
 alter table public.lootora_scam_attempts enable row level security;
 alter table public.lootora_daily_scores enable row level security;
 
+-- Explicit API privileges: policies below still decide which rows are visible.
+grant select on public.lootora_profiles to authenticated;
+grant select, insert on public.lootora_chat to authenticated;
+grant select, insert on public.lootora_reports to authenticated;
+grant select on public.lootora_scam_attempts to authenticated;
+grant select on public.lootora_daily_scores to authenticated;
+
 drop policy if exists "profiles visible to authenticated" on public.lootora_profiles;
 create policy "profiles visible to authenticated" on public.lootora_profiles for select to authenticated using (true);
 
