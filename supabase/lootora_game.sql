@@ -137,7 +137,7 @@ begin
   if auth.uid() is null or p_points < 1 or p_points > 10 then raise exception 'Некорректное действие'; end if;
   insert into public.lootora_daily_scores(user_id, score_date, trade_score)
   values(auth.uid(), timezone('utc',now())::date, p_points)
-  on conflict(user_id,score_date) do update set trade_score=lootora_daily_scores.trade_score+excluded.trade_score
+  on conflict(user_id,score_date) do update set trade_score=least(20, lootora_daily_scores.trade_score+excluded.trade_score)
   returning trade_score into new_score;
   return new_score;
 end;
@@ -153,3 +153,16 @@ grant execute on function public.lootora_daily_trade(integer) to authenticated;
 insert into public.lootora_profiles(id, username, balance, reputation)
 select u.id, coalesce(nullif(u.raw_user_meta_data->>'display_name',''), split_part(u.email,'@',1), 'Игрок'), 1000, 100
 from auth.users u on conflict (id) do nothing;
+
+-- Enable realtime updates for the public game chat.
+do $$
+begin
+  if not exists (
+    select 1 from pg_publication_tables
+    where pubname = 'supabase_realtime'
+      and schemaname = 'public'
+      and tablename = 'lootora_chat'
+  ) then
+    alter publication supabase_realtime add table public.lootora_chat;
+  end if;
+end $$;
