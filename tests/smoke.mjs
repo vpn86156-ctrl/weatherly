@@ -14,7 +14,7 @@ const ids = new Set([...html.matchAll(/\bid=["']([^"']+)["']/g)].map(match => ma
 const requiredIds = [
   'accountBtn','authOverlay','authEmail','authPassword','authSubmit','authStatus',
   'bossStage','bossName','bossHpBar','goldValue','questButton',
-  'inventoryGrid','petsGrid','leaderboard','chatMessages','chatInput','toast'
+  'inventoryGrid','petsGrid','leaderboard','chatMessages','chatInput','toast',\n  'guildStatus','myGuild','guildName','guildDescription','guildList',\n  'pvpRating','pvpWins','pvpLosses','pvpQueueButton','pvpStatus'
 ];
 const missingIds = requiredIds.filter(id => !ids.has(id));
 if (missingIds.length) throw new Error('Required UI elements are missing: ' + missingIds.join(', '));
@@ -26,7 +26,7 @@ const missingHandlers = [...new Set(inlineHandlers)].filter(name =>
 );
 if (missingHandlers.length) throw new Error('Inline button handlers are missing: ' + missingHandlers.join(', '));
 
-for (const name of ['attackBoss','submitAuth','openAuth','buyUpgrade','claimQuest','sendGameChat']) {
+for (const name of ['attackBoss','submitAuth','openAuth','buyUpgrade','claimQuest','sendGameChat','loadGuilds','createGuild','joinGuild','joinPvpQueue']) {
   if (!new RegExp('window\\.' + name + '\\s*=').test(source)) throw new Error('Core action is not exposed: ' + name);
 }
 
